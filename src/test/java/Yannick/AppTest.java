@@ -47,11 +47,12 @@ class AppTest {
     
     @Test
 	public void writeNumbre() {
-        assertEquals("four thousand three hundred twenty one", App.writeNumbre(4321));
-        assertEquals("fifteen", App.writeNumbre(15));
-        assertEquals("twenty one", App.writeNumbre(21));
-        assertEquals("one hundred and one", App.writeNumbre(101));
-        assertEquals("ten thousand one hundred and one", App.writeNumbre(10101));
+        assertEquals("nine dollars.", App.writeNumber(9));
+        assertEquals("seventeen dollars.", App.writeNumber(17));
+        assertEquals("one hundred and one dollars.", App.writeNumber(101));
+        assertEquals("one thousand dollars.", App.writeNumber(1000));
+        assertEquals("ten thousand and one hundred and one dollars.", App.writeNumber(10101));
+        assertEquals("two billion and one hundred fourty seven million and four hundred eighty three thousand and six hundred fourty seven dollars.", App.writeNumber(2147483647));
 	}
 
 }

@@ -89,22 +89,80 @@ public final class App {
         return fooBarQix;
     }
 
-    public static String writeNumbre(int number){
+    public static String writeNumber(int number){
+
+        System.out.println(number);
         String numberStr = Integer.toString(number);
+        String numberInWord = "";
+
         //formate number
-        String formatted = numberStr.replaceAll("(\\d)(?=(\\d{3})+$)", "$1,");
+        String formated = numberStr.replaceAll("(\\d)(?=(\\d{3})+$)", "$1 ");
         
-        //split number
-        String[] parts = formatted.split(",");
-        System.out.println(parts.length);
-        System.out.println(parts[0]);
+        //split number in parts of 3 digits
+        String[] parts = formated.split("\\s");
+        String buble = "";
 
-        String x = "004";
+        //formate parts[0] if less than 3 digits
+        if(parts[0].length() < 3){
+            switch (parts[0].length()){
+                
+                case 1:
+                    buble = parts[0];
+                    parts[0] = "0";
+                    parts[0] += parts[0];
+                    parts[0] += buble; 
+                    break;
 
-        //String to integer
-        int i = Integer.parseInt(x);  
-        System.out.println(i+6);
-        return parts[0];
+                case 2:
+                    buble = parts[0];
+                    parts[0] = "0";
+                    parts[0] += buble; 
+                    break;
+            }
+        }
+        //translate each part in word
+            
+        int i = 0;
+        for(String part : parts){
+            if(i > 0){
+                numberInWord += "and ";
+            }
+            numberInWord += Outils.translateEachPart(part, numberInWord);
+            if(parts.length == 4){
+                switch(i){
+                    case 0:
+                        numberInWord += "billion " ;
+                        break;
+                    case 1:
+                        numberInWord += "million " ;
+                        break;
+                    case 2:
+                        numberInWord += "thousand " ;
+                        break;
+                }
+            }if(parts.length == 3){
+                switch(i){
+
+                    case 0:
+                        numberInWord += "million " ;
+                        break;
+                    case 1:
+                        numberInWord += "thousand " ;
+                        break;
+                }
+            }if(parts.length == 2){
+                switch(i){
+    
+                    case 0:
+                        numberInWord += "thousand " ;
+                        break;
+                }
+            }i++;
+        } 
+        numberInWord += "dollars.";
+        numberInWord = numberInWord.replace("and dollars.", "dollars.");
+        System.out.println(numberInWord);
+        return numberInWord;
     }
 
 }
